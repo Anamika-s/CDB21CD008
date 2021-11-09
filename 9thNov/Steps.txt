@@ -1,0 +1,18 @@
+https://dotnet.microsoft.com/download/visual-studio-sdks > SDK
+https://code.visualstudio.com/download  : Visual Studio Code
+
+dotnet --version
+
+dotnet new console --name FirstProject
+
+cd FirstProject
+
+code .
+
+dotent run
+
+Data Types
+
+https://www.tutorialsteacher.com/csharp/csharp-data-types
+
+
