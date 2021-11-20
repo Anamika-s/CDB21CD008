@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+
+namespace ADONetDemos
+{
+    class Program2
+    {
+        static void Main()
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnection"].ToString());
+            SqlDataAdapter ada = new SqlDataAdapter("Select * from Employee", sqlConnection);
+            DataSet ds = new DataSet();
+            
+            ada.Fill(ds, "Employee");
+            // Insert Dlete eedit display
+            ada.Update(ds, "Emplyee");
+
+
+
+
+
+        }
+       
+    }
+}
