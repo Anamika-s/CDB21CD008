@@ -1,0 +1,95 @@
+-- SubQuery
+-- OuterQuery operartor (InnerQuey)
+-- if the InnerQuey returns a single value, then operartor cud be = <> > < 
+-- if the InnerQuey returns more than single value, then operartor cud be 
+-- IN  Any All
+
+-- Give me name of employee who gets salary more than max salary 
+
+select * from student
+Select name from student where marks = (Select max(marks) from student)
+
+Select name from student where marks < (Select marks from student
+where name='Ajith')
+
+Select name from student where marks > ALL (Select marks from student
+where name IN('Ajith','Ajay'))
+
+-- Group By Clause
+-- To group records  with same values
+
+drop table salesman
+create table salesman (id int identity, name varchar(20), region varchar(20), sales int)
+
+insert into salesman (name, region , sales) values
+('Ajay','South',70),
+('Deepak','North',80),
+('Pradeep','North',84),
+('Sagar','East',84),
+('Deepak','East',45),
+('Pradeep','North',84),
+('Sagar','South',84),
+('Sagar','North',84),
+('Sagar','East',84)
+
+ insert into salesman   values
+('Ajay','South',70)
+
+select * from salesman
+
+-- how many sales done in every region 
+-- group by
+-- select [column] , aggregatefunction(column) from tablename
+-- [where]
+-- group by column name
+-- [having]   
+
+-- scalar functions > left , right , len , power
+-- aggregate / group > max min count sum avg 
+select lower(name) from salesman
+select max(sales) from salesman
+
+select region, sum (sales) from salesman 
+group by region
+
+select name, sum (sales) As "Total Sales" , max(sales) As "Max Sales" from salesman 
+group by name
+
+select name , region , max (sales) 
+from salesman
+group by name , region
+
+
+select region, sum (sales) from salesman 
+group by region
+
+-- Give me total sales done by Ajay & Sagar
+select name, sum (sales) from salesman 
+where name IN ('Ajay','Sagar')
+group by name
+
+
+-- Give me total sales done by Ajay & Sagar , but the total sales 
+-- shud be more than 300
+select name, sum (sales) from salesman 
+where name IN ('Ajay','Sagar')
+group by name
+having  sum (sales) > 300
+
+
+-- Views 
+-- Views are virtual tables
+create View NorthSales
+as 
+Select * from salesman where region='North'
+
+select * from NorthSales
+
+-- used for security
+-- we can perform CRUD operation through views also
+
+insert into NorthSales values('Farooq','South',90)
+-- Views are of 2 types
+--1. Simple ( Based on 1 table)
+--2. Complex ( Based on more than 1 table  we have to use joins)
+
